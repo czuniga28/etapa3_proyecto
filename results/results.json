@@ -1,0 +1,107 @@
+{
+  "scenarios": [
+    {
+      "name": "Port scan horizontal",
+      "attackers": [
+        "10.0.0.1"
+      ],
+      "benign": [
+        "10.0.0.3"
+      ],
+      "flagged": {
+        "10.0.0.1": [
+          "PORT_SCAN"
+        ]
+      },
+      "TP": 1,
+      "FP": 0,
+      "TN": 1,
+      "FN": 0,
+      "detections_delta": 17
+    },
+    {
+      "name": "UDP flood (5-tupla)",
+      "attackers": [
+        "10.0.0.2"
+      ],
+      "benign": [
+        "10.0.0.3"
+      ],
+      "flagged": {
+        "10.0.0.2": [
+          "FLOOD"
+        ]
+      },
+      "TP": 1,
+      "FP": 0,
+      "TN": 1,
+      "FN": 0,
+      "detections_delta": 27572
+    },
+    {
+      "name": "SYN flood (half-open)",
+      "attackers": [
+        "10.0.0.2"
+      ],
+      "benign": [
+        "10.0.0.3"
+      ],
+      "flagged": {
+        "10.0.0.2": [
+          "SYN_FLOOD"
+        ]
+      },
+      "TP": 1,
+      "FP": 0,
+      "TN": 1,
+      "FN": 0,
+      "detections_delta": 24172
+    },
+    {
+      "name": "Ataque mixto + mitigaci\u00f3n",
+      "attackers": [
+        "10.0.0.1",
+        "10.0.0.2"
+      ],
+      "benign": [
+        "10.0.0.3"
+      ],
+      "flagged": {
+        "10.0.0.2": [
+          "FLOOD"
+        ],
+        "10.0.0.1": [
+          "PORT_SCAN"
+        ]
+      },
+      "TP": 2,
+      "FP": 0,
+      "TN": 1,
+      "FN": 0,
+      "legit_loss_pct": 0,
+      "legit_rtt_ms": 454.823,
+      "attacker_loss_pct": 100,
+      "mitigated_pkts": 36184
+    }
+  ],
+  "thresholds": {
+    "flood_per_window": 100,
+    "scan_per_window": 20,
+    "syn_per_window": 80,
+    "window_s_approx": 1.05
+  },
+  "baseline": {
+    "loss_pct": 0,
+    "rtt_avg_ms": 2.48
+  },
+  "mark_mode_marked_pkts": 162,
+  "aggregate": {
+    "TP": 5,
+    "FP": 0,
+    "TN": 4,
+    "FN": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "false_positive_rate": 0.0
+  }
+}
